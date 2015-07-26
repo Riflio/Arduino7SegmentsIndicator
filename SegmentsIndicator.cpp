@@ -304,11 +304,14 @@ byte SegmentsIndicator::makeDisplayResultPortMask(volatile int8_t portData, byte
 */
 void SegmentsIndicator::displayRefresh() 
 {
+	//-- обновляем, но не слишком часто, иначе не успеют обновится
+	static long timerDisplayRefresh=-1;
+  	if (millis() - timerDisplayRefresh < 5) return;    
+  	timerDisplayRefresh=millis();
+
 	//-- В один момент должен быть включён только один разряд индикатора  
-	static byte dig =0;  
-  
-	if (dig >= DIGS_COUNT) dig=0;
-  
+	static byte dig =0;   
+	if (dig >= DIGS_COUNT) dig=0;  
 	//-- Записываем в порты
 	byte pd = dig * PORTS_COUNT;
 
@@ -327,4 +330,4 @@ void SegmentsIndicator::clearDisplay()
 }
 
 
-//-- Балл-маскарад закончен феерично.
+//-- Балл-маскарад закончен, феерично.
