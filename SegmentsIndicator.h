@@ -18,7 +18,7 @@ class SegmentsIndicator
 	
 	static const byte DIGS_COUNT = 4;//-- Количество разрядов
 	static const byte SEGMENTS_COUNT = 8; //-- Количество сегментов для одного символа
-	static const byte DIGITS_COUNT = 16; //-- Количество закодированных символов для каждого разряда из сегментов
+	static const byte DIGITS_COUNT = 17; //-- Количество закодированных символов для каждого разряда из сегментов
 	static const byte PORTS_COUNT = 3; //-- Количество портов ввода/вывода Ардуинки
 
 	SegmentsIndicator(byte digs[], byte segments[]);
@@ -30,8 +30,8 @@ class SegmentsIndicator
 	void displaySymbol2(int counter, ...); //-- отображаем за раз сразу несоколько символов counter - сколько именно, кэп
 	void displayRefresh(); //-- перерисовываем для отображения следующего разряда
 	void clearDisplay(); //-- действительно тут нужен коммент? =)
+	void showAll(byte symbol); //-- принужительно показывает во всех разрядах символ. Не нуждается в displayRefresh(); 
 	
-
   private:
 	
 	byte rdigs[DIGS_COUNT]  = {0}; //--разряды  (4  3  2  1)
@@ -52,9 +52,10 @@ class SegmentsIndicator
 	 0b10000000, //-- "."
 	 0b01000000, //-- "-"	 
 	 0b00111001, //-- "C"
-	 0b01111001,  //-- "E"
-     0b00110111 //-- "П"
-	}; 
+	 0b01111001, //-- "E"
+     0b00110111, //-- "П"
+     0b11111111  //-- All segments
+ 	}; 
 
 	//-- Что бы не использовать двумерные массивы приведём к одномерному
 	byte displayDigitsMasks[ DIGITS_COUNT * PORTS_COUNT] = {0}; //-- Распихиваем маски для каждого символа по портам A-D. 

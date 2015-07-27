@@ -1,0 +1,8 @@
+SegmentsIndicator	KEYWORD1
+displayVal			KEYWORD2
+displaySymbol2 		KEYWORD2
+displaySymbol2		KEYWORD2
+displayRefresh		KEYWORD2
+clearDisplay		KEYWORD2
+showAll				KEYWORD2
+

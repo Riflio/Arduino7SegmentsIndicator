@@ -322,6 +322,30 @@ void SegmentsIndicator::displayRefresh()
 	dig++;
   
 }
+ 
+/**
+*принужительно показывает во всех разрядах символ. 
+*Не нуждается в displayRefresh(); 
+*/
+void SegmentsIndicator::showAll(byte symbol)
+{
+	
+	byte pp =  symbol * PORTS_COUNT;
+			
+	byte portb = 0;
+	byte portc = 0;
+	byte portd = 0;
+	
+	//-- скрестим маски сегментов со всеми возможными разрядами, что бы показался символ в каждом
+	makeDisplayResultPortMask(portb, displayDigitsPortsMask[0], displayDigitsMasks[pp + 0] | displayDigsPortsMask[0]);  
+	makeDisplayResultPortMask(portc, displayDigitsPortsMask[1], displayDigitsMasks[pp + 1] | displayDigsPortsMask[1]);
+	makeDisplayResultPortMask(portd, displayDigitsPortsMask[2], displayDigitsMasks[pp + 2] | displayDigsPortsMask[2]);
+
+	//-- ну и в обход функции обновления выведем символы
+	PORTB = makeDisplayResultPortMask(PORTB, displayPortsMask[0], portb);
+	PORTC = makeDisplayResultPortMask(PORTC, displayPortsMask[1], portc);
+	PORTD = makeDisplayResultPortMask(PORTD, displayPortsMask[2], portd);
+}
 
 //-- Очищаем индикатор, т.е. выводим ничего =) 
 void SegmentsIndicator::clearDisplay()
